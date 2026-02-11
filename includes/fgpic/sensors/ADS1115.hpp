@@ -7,7 +7,7 @@
 class ADS1115: public I2CDevice
 {
 public:
-  ADS1115::ADS1115(I2CInterface* bus, int address);
+  ADS1115(I2CInterface* bus, int address);
 
 private:
 

@@ -93,7 +93,7 @@ bool AHT20::isBusy(void) {
     if (!read_blocking(&status, 1, false) == 1) {
         return false;
     }
-    return ((status & AHT20_STATUS_BUSY) == AHT20_STATUS_BUSY);
+    return ((status & AHT20StatusCode_BUSY) == AHT20StatusCode_BUSY);
 }
 
 bool AHT20::isCalibrated(void) {
@@ -101,7 +101,7 @@ bool AHT20::isCalibrated(void) {
     if (!read_blocking(&status, 1, false) == 1) {
         return false;
     }
-    return ((status & AHT20_STATUS_CALIBRATED) == AHT20_STATUS_CALIBRATED);
+    return ((status & AHT20StatusCode_CALIBRATED) == AHT20StatusCode_CALIBRATED);
 }
 
 uint8_t AHT20::getStatus(void) {

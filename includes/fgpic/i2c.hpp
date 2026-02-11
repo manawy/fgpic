@@ -1,8 +1,8 @@
 #ifndef FGPIC_I2C_HPP
 #define FGPIC_I2C_HPP
 
- #include "pico/stdlib.h"
- #include "hardware/i2c.h"
+#include "pico/stdlib.h"
+#include "hardware/i2c.h"
 
 
 // The I2C interface used by a device
@@ -21,7 +21,7 @@ private:
 
 };
 
-I2CInterface::I2CInterface(i2c_inst_t* i2cbus, int sda_pin, int scl_pin):
+inline I2CInterface::I2CInterface(i2c_inst_t* i2cbus, int sda_pin, int scl_pin):
     m_i2cbus(i2cbus),
     m_sda_pin(sda_pin),
     m_scl_pin(scl_pin)
@@ -41,7 +41,7 @@ private:
 
 };
 
-I2CDevice::I2CDevice(I2CInterface *bus, int8_t address):
+inline I2CDevice::I2CDevice(I2CInterface *bus, int8_t address):
     m_bus(bus),
     m_address(address)
 {}
