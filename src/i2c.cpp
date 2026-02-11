@@ -1,4 +1,5 @@
-#include "fgpic/i2c.h"
+#include "fgpic/i2c.hpp"
+#include "pico/binary_info.h"
 
 //  I2CInterface
 // -----------------
