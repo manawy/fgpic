@@ -50,6 +50,18 @@ target_include_directories(fgpic_ads1115 INTERFACE ${CMAKE_CURRENT_LIST_DIR}/inc
 target_link_libraries(fgpic_ads1115 INTERFACE fgpic)
 
 
+# DS3231 RTC
+# ---------------
+
+add_library(fgpic_ds3231 INTERFACE)
+
+target_sources(fgpic_ds3231 INTERFACE
+        ${CMAKE_CURRENT_LIST_DIR}/src/sensors/DS3231.cpp
+        )
+target_include_directories(fgpic_ds3231 INTERFACE ${CMAKE_CURRENT_LIST_DIR}/includes)
+target_link_libraries(fgpic_ds3231 INTERFACE fgpic)
+
+
 
 # build examples
 # --------------
