@@ -24,6 +24,8 @@ int I2CDevice::write_blocking(const uint8_t *src, size_t len, bool nostop) {
     return i2c_write_blocking(m_bus->get(), m_address, src, len, nostop);
 }
 
+
+
 int I2CDevice::read_blocking(uint8_t *dst, size_t len, bool nostop) {
     return  i2c_read_blocking(m_bus->get(), m_address, dst, len, nostop);
 }
