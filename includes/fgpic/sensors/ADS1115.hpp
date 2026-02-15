@@ -127,6 +127,8 @@ public:
 
   int16_t read_once();
   float volts(int16_t conversion);
+  float millivolts(int16_t conversion) {return 1000*volts(conversion);};
+
 
 private:
   bool send_config();

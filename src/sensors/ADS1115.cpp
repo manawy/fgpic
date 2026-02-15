@@ -24,9 +24,10 @@ void ADS1115::set_gain(ADS1115Gain gain) {
 int16_t ADS1115::read_once() {
     write_blocking(m_config.buf, 3, false); // assume trigger mode for now
 
+    busy_wait_ms(10);
+
     uint8_t bufr[1] = {ADS1115_REG::APOINTER_CONVERSION};
     write_blocking(bufr, 1, false);
-    busy_wait_ms(10);
 
     uint8_t res[2];
     read_blocking(res, 2, false);

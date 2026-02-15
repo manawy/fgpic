@@ -38,18 +38,20 @@
 
      ADS1115 ads1115(&i2cbus, ADS1115::ADS1115Addr_GND);
      ads1115.set_multiplexer(ADS1115::ADS1115MUX_01);
-     ads1115.set_gain(ADS1115::ADS1115DGain_FOUR);
+     ads1115.set_gain(ADS1115::ADS1115DGain_TWO);
 
 
      while (true) {
          set_led(true);
 
-         ads1115.set_multiplexer(ADS1115::ADS1115MUX_01);
+         ads1115.set_multiplexer(ADS1115::ADS1115MUX_03);
          int16_t ret = ads1115.read_once();
-         ads1115.set_multiplexer(ADS1115::ADS1115MUX_23);
-         int16_t ret2 = ads1115.read_once();
-         printf("%f - %f\n", ads1115.volts(ret), ads1115.volts(ret2));
+         printf("%f\n", ads1115.millivolts(ret));
 
+         //ads1115.set_multiplexer(ADS1115::ADS1115MUX_23);
+         //int16_t ret2 = ads1115.read_once();
+        // printf("end 2\n");
+         //printf("%f - %f : %f\n", ads1115.volts(ret), ads1115.volts(ret2), ads1115.volts(ret)-ads1115.volts(ret2));
 
          set_led(false);
          sleep_ms(LED_DELAY_MS);
