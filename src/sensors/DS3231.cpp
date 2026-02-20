@@ -3,7 +3,7 @@
 #include <cstdint>
 
 DS3231::DS3231(I2CInterface* i2c_bus) :
-    I2CDevice(i2c_bus, DS3231_REG::ADDR_I2C)
+    I2CDevice(i2c_bus, DS3231_REG::ADDR_I2C, DS3231_DEFAULT_TIMEOUT)
 {}
 
 
@@ -11,8 +11,8 @@ DS3231::DS3231(I2CInterface* i2c_bus) :
 
 void DS3231::read_time(Time& time) {
     m_buf[0] = DS3231_REG::ADDR_START;
-    write_blocking(m_buf, 1, false);
-    read_blocking(m_buf, 7, false);
+    write_timeout(m_buf, 1, false);
+    read_timeout(m_buf, 7, false);
 
     time.second = convert_seconds();
     time.minute = convert_minutes();
@@ -55,7 +55,7 @@ uint8_t DS3231::convert_month() {
 
 uint16_t DS3231::convert_year() {
     uint8_t decoded = (m_buf[6] & 15) + 10 * ((m_buf[6] & (15 << 4)) >> 4);
-    return decoded+2000
+    return decoded+2000;
 }
 
 uint8_t DS3231::convert_60(uint8_t value) {

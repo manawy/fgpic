@@ -55,6 +55,7 @@ protected:
         static constexpr uint8_t ADDR_MSB_TEMPERATURE = 0x11;
         static constexpr uint8_t ADDR_LSB_TEMPERATURE = 0x12;
     };
+    static constexpr uint DS3231_DEFAULT_TIMEOUT = 1000;
 public:
     DS3231(I2CInterface* i2c_bus);
 
@@ -74,6 +75,6 @@ private:
 
     uint8_t m_buf[7];
 
-}
+};
 
 #endif // FGPIC_SENSORS_DS3231_HPP
