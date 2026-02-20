@@ -61,6 +61,18 @@ target_sources(fgpic_ds3231 INTERFACE
 target_include_directories(fgpic_ds3231 INTERFACE ${CMAKE_CURRENT_LIST_DIR}/includes)
 target_link_libraries(fgpic_ds3231 INTERFACE fgpic)
 
+# SHT35
+# ---------------
+
+add_library(fgpic_sht35 INTERFACE)
+
+target_sources(fgpic_sht35 INTERFACE
+        ${CMAKE_CURRENT_LIST_DIR}/src/sensors/SHT35.cpp
+        )
+target_include_directories(fgpic_sht35 INTERFACE ${CMAKE_CURRENT_LIST_DIR}/includes)
+target_link_libraries(fgpic_sht35 INTERFACE fgpic)
+
+
 
 
 # build examples
