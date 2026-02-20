@@ -1,5 +1,6 @@
 #include "fgpic/i2c.hpp"
 #include "pico/binary_info.h"
+#include <hardware/i2c.h>
 
 //  I2CInterface
 // -----------------
@@ -25,8 +26,18 @@ int I2CDevice::write_blocking(const uint8_t *src, size_t len, bool nostop) {
 }
 
 
+int I2CDevice::write_timeout(const uint8_t *src, size_t len, bool nostop) {
+    return i2c_write_timeout_us(m_bus->get(), m_address, src, len, nostop, m_timeout_us);
+}
+
+
 
 int I2CDevice::read_blocking(uint8_t *dst, size_t len, bool nostop) {
     return  i2c_read_blocking(m_bus->get(), m_address, dst, len, nostop);
 }
 
+
+
+int I2CDevice::read_timeout(uint8_t *dst, size_t len, bool nostop) {
+    return  i2c_read_timeout_us(m_bus->get(), m_address, dst, len, nostop, m_timeout_us);
+}
