@@ -73,10 +73,13 @@ protected:
     static constexpr uint8_t CONFIG_LSB_COMPALERT_3        = 0x02; // Assert after 3 conversions
     static constexpr uint8_t CONFIG_LSB_COMPALERT_DISABLE  = 0x03; // Disabled (default)
   };
+  static constexpr uint ADS1115_DEFAULT_TIMEOUT = 1000;
 
 
 public:
   // The possible i2c address
+  //
+  // Indicates the pin to wich the addr pin is attached to
   enum ADS1115Addr : uint8_t
   {
     ADS1115Addr_GND = 0x48,
@@ -98,6 +101,7 @@ public:
     ADS1115DataRate_860 = ADS1115_REG::CONFIG_LSB_DR_860SPS,
   };
 
+  // The possible gains
   enum ADS1115Gain :uint8_t
   {
     ADS1115DGain_TWO_THIRD = ADS1115_REG::CONFIG_MSB_PGA_FSR_6_144,
@@ -108,6 +112,10 @@ public:
     ADS1115DGain_SIXTEEN   = ADS1115_REG::CONFIG_MSB_PGA_FSR_0_256,
   };
 
+  // The possible mutliplexer configurations
+  //
+  // ADS1115MUX_XY : differential read between pin X and Y
+  // If Y = G: G is ground
   enum ADS1115Mux :uint8_t
   {
     ADS1115MUX_01 = ADS1115_REG::CONFIG_MSB_MUX_01, // AINp = AIN0 and AINn = AIN1 (default)
@@ -121,13 +129,14 @@ public:
   };
 
   ADS1115(I2CInterface* bus, ADS1115Addr address);
+  ADS1115(I2CInterface* bus, ADS1115Addr address, int timeout);
 
   void set_multiplexer(ADS1115Mux mux);
   void set_gain(ADS1115Gain gain);
 
-  int16_t read_once();
-  float volts(int16_t conversion);
-  float millivolts(int16_t conversion) {return 1000*volts(conversion);};
+  int read_once();
+  float volts();
+  float millivolts() {return 1000*volts();};
 
 
 private:
@@ -150,6 +159,7 @@ private:
       ADS1115_REG::CONFIG_LSB_COMPALERT_DISABLE };
   };
 
+  int16_t m_last_read;
   ADS1115Config m_config;
 
 };

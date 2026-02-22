@@ -45,15 +45,16 @@
          set_led(true);
 
          ads1115.set_multiplexer(ADS1115::ADS1115MUX_03);
-         int16_t ret = ads1115.read_once();
-         printf("%f\n", ads1115.millivolts(ret));
-
+         int ret = ads1115.read_once();
+         if (ret == PICO_OK) {
+            printf("%f\n", ads1115.millivolts());
+            set_led(false);
+         }
          //ads1115.set_multiplexer(ADS1115::ADS1115MUX_23);
          //int16_t ret2 = ads1115.read_once();
         // printf("end 2\n");
          //printf("%f - %f : %f\n", ads1115.volts(ret), ads1115.volts(ret2), ads1115.volts(ret)-ads1115.volts(ret2));
 
-         set_led(false);
          sleep_ms(LED_DELAY_MS);
      }
  }
