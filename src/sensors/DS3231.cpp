@@ -9,10 +9,16 @@ DS3231::DS3231(I2CInterface* i2c_bus) :
 
 
 
-void DS3231::read_time(Time& time) {
+int DS3231::read_time(Time& time) {
     m_buf[0] = DS3231_REG::ADDR_START;
-    write_timeout(m_buf, 1, false);
-    read_timeout(m_buf, 7, false);
+    int ret = write_timeout(m_buf, 1, false);
+    if (ret != 1) {
+        return ret;
+    }
+    ret = read_timeout(m_buf, 7, false);
+    if (ret != 7) {
+        return ret;
+    }
 
     time.second = convert_seconds();
     time.minute = convert_minutes();
@@ -21,6 +27,8 @@ void DS3231::read_time(Time& time) {
     time.date = convert_date();
     time.month = convert_month();
     time.year = convert_year();
+
+    return PICO_OK;
 }
 
 uint8_t DS3231::convert_seconds() {

@@ -19,7 +19,7 @@ int main() {
 
      while (true) {
 
-         Time time;
+         DS3231::Time time;
          ds3231.read_time(time);
 
          printf("%d:%d:%d\n",time.hour, time.minute, time.second);

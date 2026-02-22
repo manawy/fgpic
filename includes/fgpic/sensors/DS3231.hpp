@@ -4,25 +4,7 @@
 #include "fgpic/i2c.hpp"
 #include <cstdint>
 
-struct Time {
-    uint8_t		second;
-    uint8_t		minute;
-    uint8_t		hour;
-    uint8_t		day;
-    uint8_t		date;
-    uint8_t		month;
-    uint16_t	year;
 
-    Time():
-        second(0),
-        minute(0),
-        hour(0),
-        day(0),
-        date(0),
-        month(0),
-        year(0)
-    {};
-};
 
 class DS3231: public I2CDevice
 {
@@ -57,9 +39,31 @@ protected:
     };
     static constexpr uint DS3231_DEFAULT_TIMEOUT = 1000;
 public:
+
+    struct Time {
+        uint8_t		second;
+        uint8_t		minute;
+        uint8_t		hour;
+        uint8_t		day;
+        uint8_t		date;
+        uint8_t		month;
+        uint16_t	year;
+
+        Time():
+        second(0),
+        minute(0),
+        hour(0),
+        day(0),
+        date(0),
+        month(0),
+        year(0)
+        {};
+    };
+
+
     DS3231(I2CInterface* i2c_bus);
 
-    void read_time(Time& time);
+    int read_time(Time& time);
 
 private:
 
