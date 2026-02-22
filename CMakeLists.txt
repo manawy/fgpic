@@ -11,9 +11,23 @@ project(fgpic C CXX ASM)
 if (PICO_SDK_VERSION_STRING VERSION_LESS "2.2.0")
     message(FATAL_ERROR "Raspberry Pi Pico SDK version 2.2.0 (or later) required. Your version is ${PICO_SDK_VERSION_STRING}")
 endif()
-pico_sdk_init()
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
+# Pico SDK
+# --------
+pico_sdk_init()
+
+# FreeRTOS
+# --------
+set(FREERTOS_KERNEL_PATH ${CMAKE_CURRENT_LIST_DIR}/libs/FreeRTOS-Kernel)
+include(FreeRTOS_Kernel_import.cmake)
+
+
+# One Wire library
+# ----------------
+add_subdirectory(libs/OneWire)
+
 
 # the main library
 # ----------------
